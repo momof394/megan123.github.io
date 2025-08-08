@@ -1,10 +1,494 @@
-<<!-- index.html -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>My First GitHub Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrendCraft - Digital Product Creator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#5D5CDE',
+                        primaryHover: '#4F4EC7',
+                        dark: '#181818'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #5D5CDE 0%, #8B5CF6 50%, #EC4899 100%);
+        }
+        
+        .glass-effect {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .dark .glass-effect {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .niche-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .niche-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(93, 92, 222, 0.15);
+        }
+        
+        .canvas-area {
+            background-image: 
+                linear-gradient(rgba(93, 92, 222, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(93, 92, 222, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        
+        .tool-button {
+            transition: all 0.2s ease;
+        }
+        
+        .tool-button:hover {
+            transform: scale(1.05);
+        }
+        
+        .trending-badge {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+    </style>
 </head>
-<body>
-  <h1>Welcome to my site!</h1>
+<body class="bg-white dark:bg-dark text-gray-900 dark:text-white transition-colors duration-300">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass-effect">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <h1 class="text-2xl font-bold gradient-bg bg-clip-text text-transparent">TrendCraft</h1>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#" class="nav-link active" onclick="showSection('discover')">Discover</a>
+                        <a href="#" class="nav-link" onclick="showSection('create')">Create</a>
+                        <a href="#" class="nav-link" onclick="showSection('tools')">Tools</a>
+                        <a href="#" class="nav-link" onclick="showSection('gallery')">Gallery</a>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <button class="bg-primary hover:bg-primaryHover text-white px-4 py-2 rounded-lg font-medium">
+                        Get Started
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-16">
+        <!-- Discover Section -->
+        <section id="discover-section" class="section-content">
+            <!-- Hero Section -->
+            <div class="gradient-bg text-white py-20">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <h1 class="text-5xl md:text-6xl font-bold mb-6 fade-in">
+                        Create <span class="text-yellow-300">Trending</span> Digital Products
+                    </h1>
+                    <p class="text-xl md:text-2xl mb-8 opacity-90 fade-in">
+                        Discover hot niches, design stunning products, and launch your digital empire
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center fade-in">
+                        <button class="bg-white text-primary px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-colors">
+                            Explore Trending Niches
+                        </button>
+                        <button class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-primary transition-colors">
+                            Start Creating Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trending Niches -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold mb-4">🔥 Trending Niches</h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-400">Discover the hottest opportunities right now</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="niches-grid">
+                    <!-- Niche cards will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Stats Section -->
+            <div class="bg-gray-50 dark:bg-gray-900 py-16">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                        <div>
+                            <div class="text-4xl font-bold text-primary mb-2">50K+</div>
+                            <div class="text-gray-600 dark:text-gray-400">Products Created</div>
+                        </div>
+                        <div>
+                            <div class="text-4xl font-bold text-primary mb-2">1M+</div>
+                            <div class="text-gray-600 dark:text-gray-400">Downloads</div>
+                        </div>
+                        <div>
+                            <div class="text-4xl font-bold text-primary mb-2">200+</div>
+                            <div class="text-gray-600 dark:text-gray-400">Trending Niches</div>
+                        </div>
+                        <div>
+                            <div class="text-4xl font-bold text-primary mb-2">95%</div>
+                            <div class="text-gray-600 dark:text-gray-400">Success Rate</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Create Section -->
+        <section id="create-section" class="section-content hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <div class="flex flex-col lg:flex-row gap-8 h-screen">
+                    <!-- Toolbar -->
+                    <div class="lg:w-64 bg-gray-50 dark:bg-gray-900 rounded-lg p-4">
+                        <h3 class="text-lg font-semibold mb-4">Design Tools</h3>
+                        <div class="space-y-2">
+                            <button class="tool-button w-full text-left p-3 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 flex items-center space-x-3">
+                                <i class="fas fa-mouse-pointer text-primary"></i>
+                                <span>Select</span>
+                            </button>
+                            <button class="tool-button w-full text-left p-3 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 flex items-center space-x-3">
+                                <i class="fas fa-square text-primary"></i>
+                                <span>Rectangle</span>
+                            </button>
+                            <button class="tool-button w-full text-left p-3 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 flex items-center space-x-3">
+                                <i class="fas fa-circle text-primary"></i>
+                                <span>Circle</span>
+                            </button>
+                            <button class="tool-button w-full text-left p-3 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 flex items-center space-x-3">
+                                <i class="fas fa-font text-primary"></i>
+                                <span>Text</span>
+                            </button>
+                            <button class="tool-button w-full text-left p-3 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 flex items-center space-x-3">
+                                <i class="fas fa-image text-primary"></i>
+                                <span>Image</span>
+                            </button>
+                            <button class="tool-button w-full text-left p-3 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 flex items-center space-x-3">
+                                <i class="fas fa-paint-brush text-primary"></i>
+                                <span>Brush</span>
+                            </button>
+                        </div>
+
+                        <h3 class="text-lg font-semibold mb-4 mt-8">Templates</h3>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div class="aspect-square bg-gradient-to-br from-purple-400 to-pink-400 rounded-lg cursor-pointer hover:scale-105 transition-transform"></div>
+                            <div class="aspect-square bg-gradient-to-br from-blue-400 to-cyan-400 rounded-lg cursor-pointer hover:scale-105 transition-transform"></div>
+                            <div class="aspect-square bg-gradient-to-br from-green-400 to-blue-400 rounded-lg cursor-pointer hover:scale-105 transition-transform"></div>
+                            <div class="aspect-square bg-gradient-to-br from-yellow-400 to-orange-400 rounded-lg cursor-pointer hover:scale-105 transition-transform"></div>
+                        </div>
+                    </div>
+
+                    <!-- Canvas Area -->
+                    <div class="flex-1 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden">
+                        <div class="h-full canvas-area flex items-center justify-center">
+                            <div id="canvas-container" class="bg-white dark:bg-gray-700 w-96 h-96 rounded-lg shadow-lg relative">
+                                <div class="absolute inset-0 flex items-center justify-center text-gray-400">
+                                    <div class="text-center">
+                                        <i class="fas fa-plus text-4xl mb-4"></i>
+                                        <p>Click to start creating</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Properties Panel -->
+                    <div class="lg:w-64 bg-gray-50 dark:bg-gray-900 rounded-lg p-4">
+                        <h3 class="text-lg font-semibold mb-4">Properties</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Fill Color</label>
+                                <div class="flex space-x-2">
+                                    <div class="w-8 h-8 bg-red-500 rounded cursor-pointer"></div>
+                                    <div class="w-8 h-8 bg-blue-500 rounded cursor-pointer"></div>
+                                    <div class="w-8 h-8 bg-green-500 rounded cursor-pointer"></div>
+                                    <div class="w-8 h-8 bg-yellow-500 rounded cursor-pointer"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Opacity</label>
+                                <input type="range" class="w-full" min="0" max="100" value="100">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Size</label>
+                                <input type="range" class="w-full" min="10" max="200" value="100">
+                            </div>
+                        </div>
+
+                        <div class="mt-8">
+                            <button class="w-full bg-primary hover:bg-primaryHover text-white px-4 py-2 rounded-lg font-medium mb-2">
+                                Export PNG
+                            </button>
+                            <button class="w-full border border-primary text-primary hover:bg-primary hover:text-white px-4 py-2 rounded-lg font-medium">
+                                Save Project
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tools Section -->
+        <section id="tools-section" class="section-content hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold mb-4">Powerful Creation Tools</h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-400">Everything you need to create stunning digital products</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow">
+                        <div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-4">
+                            <i class="fas fa-palette text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3">Design Studio</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">Professional design tools with layers, effects, and advanced editing capabilities.</p>
+                        <button class="text-primary hover:text-primaryHover font-medium">Learn More →</button>
+                    </div>
+
+                    <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow">
+                        <div class="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center mb-4">
+                            <i class="fas fa-magic text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3">AI Assistant</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">Generate ideas, content, and designs with our AI-powered creative assistant.</p>
+                        <button class="text-green-500 hover:text-green-600 font-medium">Learn More →</button>
+                    </div>
+
+                    <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow">
+                        <div class="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center mb-4">
+                            <i class="fas fa-chart-line text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3">Analytics</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">Track performance, engagement, and optimize your digital products.</p>
+                        <button class="text-blue-500 hover:text-blue-600 font-medium">Learn More →</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section id="gallery-section" class="section-content hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold mb-4">Community Gallery</h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-400">Get inspired by amazing creations from our community</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="gallery-grid">
+                    <!-- Gallery items will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Dark mode detection
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+        }
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            if (event.matches) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        });
+
+        // Navigation
+        function showSection(sectionName) {
+            // Hide all sections
+            document.querySelectorAll('.section-content').forEach(section => {
+                section.classList.add('hidden');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionName + '-section').classList.remove('hidden');
+            
+            // Update nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        // Trending niches data
+        const trendingNiches = [
+            {
+                name: "AI Tools & Automation",
+                growth: "+245%",
+                difficulty: "Medium",
+                potential: "$50K+",
+                icon: "🤖",
+                color: "from-blue-500 to-cyan-500"
+            },
+            {
+                name: "Sustainable Living",
+                growth: "+189%",
+                difficulty: "Easy",
+                potential: "$25K+",
+                icon: "🌱",
+                color: "from-green-500 to-emerald-500"
+            },
+            {
+                name: "Digital Wellness",
+                growth: "+156%",
+                difficulty: "Medium",
+                potential: "$35K+",
+                icon: "🧘",
+                color: "from-purple-500 to-pink-500"
+            },
+            {
+                name: "Remote Work Tools",
+                growth: "+198%",
+                difficulty: "Hard",
+                potential: "$75K+",
+                icon: "💻",
+                color: "from-indigo-500 to-blue-500"
+            },
+            {
+                name: "Pet Care Tech",
+                growth: "+134%",
+                difficulty: "Easy",
+                potential: "$20K+",
+                icon: "🐕",
+                color: "from-orange-500 to-red-500"
+            },
+            {
+                name: "Mindfulness Apps",
+                growth: "+167%",
+                difficulty: "Medium",
+                potential: "$40K+",
+                icon: "🎯",
+                color: "from-teal-500 to-green-500"
+            }
+        ];
+
+        // Populate niches grid
+        function populateNiches() {
+            const grid = document.getElementById('niches-grid');
+            grid.innerHTML = trendingNiches.map(niche => `
+                <div class="niche-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg cursor-pointer">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="text-3xl">${niche.icon}</div>
+                        <span class="trending-badge bg-gradient-to-r ${niche.color} text-white px-3 py-1 rounded-full text-sm font-medium">
+                            ${niche.growth}
+                        </span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">${niche.name}</h3>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-gray-600 dark:text-gray-400">Difficulty:</span>
+                            <span class="font-medium">${niche.difficulty}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600 dark:text-gray-400">Potential:</span>
+                            <span class="font-medium text-green-600">${niche.potential}</span>
+                        </div>
+                    </div>
+                    <button class="w-full mt-4 bg-primary hover:bg-primaryHover text-white py-2 rounded-lg font-medium transition-colors">
+                        Explore Niche
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        // Gallery data
+        const galleryItems = [
+            { type: 'image', color: 'from-pink-400 to-purple-600' },
+            { type: 'design', color: 'from-blue-400 to-indigo-600' },
+            { type: 'template', color: 'from-green-400 to-blue-500' },
+            { type: 'mockup', color: 'from-yellow-400 to-orange-500' },
+            { type: 'illustration', color: 'from-purple-400 to-pink-500' },
+            { type: 'logo', color: 'from-indigo-400 to-purple-600' },
+            { type: 'banner', color: 'from-red-400 to-pink-500' },
+            { type: 'poster', color: 'from-teal-400 to-blue-500' }
+        ];
+
+        // Populate gallery
+        function populateGallery() {
+            const grid = document.getElementById('gallery-grid');
+            grid.innerHTML = galleryItems.map((item, index) => `
+                <div class="aspect-square bg-gradient-to-br ${item.color} rounded-lg cursor-pointer hover:scale-105 transition-transform flex items-center justify-center text-white font-semibold">
+                    ${item.type.charAt(0).toUpperCase() + item.type.slice(1)}
+                </div>
+            `).join('');
+        }
+
+        // Canvas interactions
+        document.addEventListener('DOMContentLoaded', function() {
+            populateNiches();
+            populateGallery();
+
+            // Add styles for nav links
+            const style = document.createElement('style');
+            style.textContent = `
+                .nav-link {
+                    color: rgba(255, 255, 255, 0.8);
+                    padding: 0.5rem 1rem;
+                    border-radius: 0.5rem;
+                    transition: all 0.2s;
+                }
+                .nav-link:hover, .nav-link.active {
+                    color: white;
+                    background-color: rgba(255, 255, 255, 0.1);
+                }
+            `;
+            document.head.appendChild(style);
+
+            // Canvas click handler
+            const canvas = document.getElementById('canvas-container');
+            canvas.addEventListener('click', function(e) {
+                const rect = canvas.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                // Create a simple shape
+                const shape = document.createElement('div');
+                shape.className = 'absolute w-8 h-8 bg-primary rounded-full cursor-pointer';
+                shape.style.left = (x - 16) + 'px';
+                shape.style.top = (y - 16) + 'px';
+                canvas.appendChild(shape);
+                
+                // Remove placeholder text if it exists
+                const placeholder = canvas.querySelector('.text-gray-400');
+                if (placeholder) {
+                    placeholder.remove();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
